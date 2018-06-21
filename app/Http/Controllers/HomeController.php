@@ -25,7 +25,11 @@ class HomeController extends Controller
 
         return view('home', [
             'fa'                => 'fa fa-user',
-            'title'             => 'Account System'
+            'title'             => 'Account System',
+            'addurl'            => '',
+            'savedata'          => '',
+            'print'             => 'printpage',
+            'goback'            => ''
         ]);
     }
 

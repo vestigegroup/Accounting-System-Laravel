@@ -9,15 +9,27 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#"> <i class="fa {{ $fa }}"> </i>  {{ $title }}</a>
+                <a class="navbar-brand" href="#"> <i class="fa {{ $fa }} "> </i>  {{ $title }}</a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a href="{{ route('home') }}"><i class="fa fa-home fa-1"></i></a></li>
-                    <li><a href=""><i class="fa fa-list fa-1"></i></a></li>
-                    <li><a href="" data-toggle="modal" data-target="#addzarplata" ><i class="fa fa-plus-square fa-1"></i></a></li>
-                    <li><a href="" target="_blank"><i class="fa fa-print fa-1"></i></a></li>
+                <ul class="nav navbar-nav navbar-right" >
+                    <li><a href="{{ route('home') }}"><i class="fa fa-home fa-lg"></i></a></li>
+                    @if($goback)
+                        <li><a href="{{ URL::previous() }}"><i class="fa fa-times-circle fa-lg"></i></a></li>
+                    @endif
+
+
+                    @if($addurl)
+                        <li><a href="{{ route($addurl) }}"><i class="fa fa-plus-square fa-lg"></i></a></li>
+                    @endif
+                    @if($savedata)
+                        <li><a href=""><i class="fa fa-floppy-o fa-lg"></i></a></li>
+                    @endif
+                    @if($print)
+                        <li><a href="" target="_blank"><i class="fa fa-print fa-lg"></i></a></li>
+                    @endif
+
                     <li class="dropdown">
                         <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user fa-1"></i> <span class="caret fa-1"></span></a>
                         <ul class="dropdown-menu">

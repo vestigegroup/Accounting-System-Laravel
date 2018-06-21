@@ -14,3 +14,4 @@ Route::post('logout', 'Auth\LoginController@logout')->name('logout');
 Route::get('home', 'HomeController@index')->name('home');
 
 // Income routes
+Route::resource('income', 'IncomesController');

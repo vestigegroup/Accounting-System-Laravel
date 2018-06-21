@@ -1,6 +1,24 @@
 @extends('layouts.app')
 @section('css')
+<style type="text/css">
+    .navbar-default {
+        /*background-color: #8f111a !important;*/
+        background-color: #0db72d !important;
+    }
+    .navbar-brand {
+        color: white !important;
+    }
+    .fa {
+        color: white !important;
+    }
+    .caret {
+        color: white !important;
+    }
+    .dropdown-menu .fa {
+        color: black !important;
+    }
 
+</style>
 @endsection
 @section('content')
     @include('shared.navbartop')

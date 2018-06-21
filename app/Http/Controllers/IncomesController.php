@@ -6,6 +6,11 @@ use Illuminate\Http\Request;
 
 class IncomesController extends Controller
 {
+    //
+    public function __construct() {
+        $this->middleware('admin.auth');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -14,6 +19,14 @@ class IncomesController extends Controller
     public function index()
     {
         //
+        return view('income.index', [
+            'fa'                => 'fa fa-arrow-down fa-fw',
+            'title'             => 'Income',
+            'addurl'            => 'income.create',
+            'savedata'          => '',
+            'print'             => 'printpage',
+            'goback'            => ''
+        ]);
     }
 
     /**
@@ -24,6 +37,14 @@ class IncomesController extends Controller
     public function create()
     {
         //
+        return view('income.create', [
+            'fa'                => 'fa fa-arrow-down fa-fw',
+            'title'             => 'Income',
+            'addurl'            => '',
+            'savedata'          => 'income.store',
+            'print'             => '',
+            'goback'            => 'yes',
+        ]);
     }
 
     /**
