@@ -3,7 +3,7 @@
 
 @endsection
 @section('content')
-    @include('shared.topnavbarhome')
+    @include('shared.navbartop')
 
     <div class="container-fluid rasxod-page">
         <div class="">
