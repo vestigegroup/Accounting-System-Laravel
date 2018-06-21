@@ -9,8 +9,8 @@
         <div class="">
             <div class="col-xs-12 col-sm-4 col-md-3 col-lg-2 rasxod-menu">
                 <div class="list-group">
-                    <a href="" class="list-group-item"> <i class="fa fa-user fa-1"></i>  <span class="text-uppercase">Outgoing</span></a>
-                    <a href="" class="list-group-item"> <i class="fa fa-connectdevelop"></i>  <span class="text-uppercase">Income</span></a>
+                    <a href="" class="list-group-item"> <i class="fa fa-arrow-down fa-fw"></i>  <span class="text-uppercase">Income</span></a>
+                    <a href="" class="list-group-item"> <i class="fa fa-arrow-up fa-fw"></i>  <span class="text-uppercase">Outgoing</span></a>
                     <a href="" class="list-group-item"> <i class="fa fa-car"></i>  <span class="text-uppercase">Customer</span></a>
                     <a href="" class="list-group-item"> <i class="fa fa-star"></i>  <span class="text-uppercase">Workers</span></a>
                     <a href="" class="list-group-item"> <i class="fa fa-star"></i>  <span class="text-uppercase">Karzho</span></a>
