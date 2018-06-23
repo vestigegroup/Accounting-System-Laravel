@@ -19,13 +19,14 @@
                         <li><a href="{{ URL::previous() }}"><i class="fa fa-times-circle fa-lg"></i></a></li>
                     @endif
 
-
                     @if($addurl)
                         <li><a href="{{ route($addurl) }}"><i class="fa fa-plus-square fa-lg"></i></a></li>
                     @endif
+
                     @if($savedata)
-                        <li><a href=""><i class="fa fa-floppy-o fa-lg"></i></a></li>
+                        <li><a href=""><button class="btn btn-danger btn-xs"  form="{{ $savedata }}" data-original-title="Save"><i class="fa fa-floppy-o fa-lg"></i></button></a></li>
                     @endif
+
                     @if($print)
                         <li><a href="" target="_blank"><i class="fa fa-print fa-lg"></i></a></li>
                     @endif

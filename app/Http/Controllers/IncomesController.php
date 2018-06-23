@@ -3,6 +3,11 @@
 namespace AccountSystem\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+
+use AccountSystem\Model\Income;
+
 
 class IncomesController extends Controller
 {
@@ -18,6 +23,8 @@ class IncomesController extends Controller
      */
     public function index()
     {
+        $income = Income::orderBy('created_at', 'desc')->get();
+
         //
         return view('income.index', [
             'fa'                => 'fa fa-arrow-down fa-fw',
@@ -25,7 +32,8 @@ class IncomesController extends Controller
             'addurl'            => 'income.create',
             'savedata'          => '',
             'print'             => 'printpage',
-            'goback'            => ''
+            'goback'            => '',
+            'incomes'            => $income
         ]);
     }
 
@@ -41,7 +49,7 @@ class IncomesController extends Controller
             'fa'                => 'fa fa-arrow-down fa-fw',
             'title'             => 'Income',
             'addurl'            => '',
-            'savedata'          => 'income.store',
+            'savedata'          => 'form-prixodi',
             'print'             => '',
             'goback'            => 'yes',
         ]);
@@ -55,7 +63,17 @@ class IncomesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        $this->validate($request, [
+
+        ]);
+
+        $income = Income::create($request->all());
+        
+        $income->save();
+
+        return redirect()->route('income.index')->with('message', 'Added successufully!!');
+
     }
 
     /**
@@ -78,6 +96,7 @@ class IncomesController extends Controller
     public function edit($id)
     {
         //
+        return $id;
     }
 
     /**

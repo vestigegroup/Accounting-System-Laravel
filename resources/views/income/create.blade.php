@@ -38,7 +38,7 @@
                 
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 table-responsive" style="margin: 0px;">
                     <!-- Content You may write your code here -->
-                   <form class="" method="POST" enctype="multipart/form-data" id="formproduct" action="{{ route('income.store') }}">
+                   <form class="" method="POST" enctype="multipart/form-data" id="form-prixodi" action="{{ route('income.store') }}">
                         {{ csrf_field() }}
                         <div class="tab-content" style="padding: 10px;border: 1px solid #ddd">
                             <div id="home" class="tab-pane fade in active">
@@ -75,7 +75,7 @@
                                     </div>
                                     <div class="col-sm-9">
                                         <div class="input-group">
-                                            <select class="form-control">
+                                            <select class="form-control" name="type_of_zakaz">
                                                 <option>Брендинг</option>
                                                 <option>Полиграфия</option>
                                                 <option>Шелькография</option>
@@ -109,7 +109,7 @@
                                     </div>
                                     <div class="col-sm-9">
                                         <div class="input-group">
-                                            <input type="text" class="form-control" placeholder="Количество " aria-describedby="basic-addon1" name="zakaz" required>
+                                            <input type="text" class="form-control" placeholder="Количество " aria-describedby="basic-addon1" name="kolvo" required>
                                             <span class="input-group-addon photo-title" id="basic-addon1"><i class="fa fa-list-ol fa-fw" aria-hidden="true"></i></i></span>
                                         </div>
                                     </div>
@@ -122,7 +122,7 @@
                                     </div>
                                     <div class="col-sm-9">
                                         <div class="input-group">
-                                            <input type="number" class="form-control" placeholder="сомони" aria-describedby="basic-addon1" name="stoimost_zakaz">
+                                            <input type="number" class="form-control" placeholder="сомони" aria-describedby="basic-addon1" name="stoimost_zakaz" id="stoimost_zakaz" required>
                                             <span class="input-group-addon facebook" id="basic-addon1"><i class="fa fa-usd fa-fw"></i></span>
                                         </div>
                                     </div>
@@ -134,8 +134,8 @@
                                        <label class="" style="line-height: 1.3em;padding: 6px 12px;"> Скидки:</label>
                                     </div>
                                     <div class="col-sm-9">
-                                        <div class="input-group ">
-                                            <input type="number" class="form-control" placeholder="%" aria-describedby="basic-addon1" name="sena_zakaz">
+                                        <div class="input-group">
+                                            <input min="0" max="100" maxlength="3" type="text" class="form-control" placeholder="%" aria-describedby="basic-addon1" name="sena_zakaz" id="sena_zakaz" required>
                                             <span class="input-group-addon instagram" id="basic-addon1"><i class="fa fa-percent fa-fw"></i></span>
                                         </div>
                                     </div>
@@ -147,8 +147,8 @@
                                        <label class="" style="line-height: 1.3em;padding: 6px 12px;"> Общие сума:</label>
                                     </div>
                                     <div class="col-sm-9">
-                                        <div class="input-group ">
-                                            <input type="number" class="form-control" placeholder="сомони" aria-describedby="basic-addon1" name="sena_zakaz">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control " placeholder="сомони" aria-describedby="basic-addon1" name="obshiye_summa" id="obshiye_summa" readonly>
                                             <span class="input-group-addon instagram" id="basic-addon1"><i class="fa fa-bank fa-fw"></i></span>
                                         </div>
                                     </div>
@@ -161,7 +161,7 @@
                                     </div>
                                     <div class="col-sm-9">
                                         <div class="input-group ">
-                                            <input type="number" class="form-control" placeholder="сомони" aria-describedby="basic-addon1" name="oplachno">
+                                            <input type="text" class="form-control" placeholder="сомони" aria-describedby="basic-addon1" name="oplachno" id="oplachno" required>
                                             <span class="input-group-addon otherlink" id="basic-addon1"><i class="fa fa-money fa-fw" aria-hidden="true"></i></span>
                                         </div>
                                     </div>
@@ -173,8 +173,8 @@
                                        <label class="" style="line-height: 1.3em;padding: 6px 12px;"> Остоток:</label>
                                     </div>
                                     <div class="col-sm-9">
-                                        <div class="input-group ">
-                                            <input type="number" class="form-control" placeholder="сомони" aria-describedby="basic-addon1" name="ostotok">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" placeholder="сомони" aria-describedby="basic-addon1" name="ostotok" id="ostotok" readonly>
                                             <span class="input-group-addon otherlink" id="basic-addon1"><i class="fa fa-dollar fa-fw" aria-hidden="true"></i></span>
                                         </div>
                                     </div>
@@ -204,7 +204,7 @@
                                     </div>
                                     <div class="col-sm-9">
                                         <div class="input-group ">
-                                            <input type="date" class="form-control" placeholder="" aria-describedby="basic-addon1" name="srok">
+                                            <input type="date" class="form-control" placeholder="" aria-describedby="basic-addon1" name="srok" required>
                                             <span class="input-group-addon otherlink" id="basic-addon1"><i style="color: red;" class="fa fa-calendar fa-fw" aria-hidden="true"></i></span>
                                         </div>
                                     </div>
@@ -224,6 +224,23 @@
 
 @endsection
 @section('js')
+<script type="text/javascript">
+    $('#stoimost_zakaz').keyup(function(){
+        $("#obshiye_summa").val($('#stoimost_zakaz').val() - $('#stoimost_zakaz').val() * $('#sena_zakaz').val()/100);
+        $("#ostotok").val($('#obshiye_summa').val() - $('#oplachno').val());
+        $("#obshiye_summa").css('background-color', 'pink');
+    });
 
+    $('#sena_zakaz').keyup(function(){
+        $("#obshiye_summa").val($('#stoimost_zakaz').val() - $('#stoimost_zakaz').val() * $('#sena_zakaz').val()/100);
+        $("#ostotok").val($('#obshiye_summa').val() - $('#oplachno').val());
+        $("#obshiye_summa").css('background-color', 'pink');
+    });
+
+    $('#oplachno').keyup(function(){
+        $("#ostotok").val($('#obshiye_summa').val() - $('#oplachno').val());
+        $("#ostotok").css('background-color', 'pink');
+    });
+</script>
 
 @endsection

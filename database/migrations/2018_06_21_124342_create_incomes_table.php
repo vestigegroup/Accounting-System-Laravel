@@ -19,13 +19,16 @@ class CreateIncomesTable extends Migration
             $table->string('company_name', 255);
             $table->string('type_of_zakaz', 255); // zakaz have to be changed to english
             $table->string('zakaz'); // zakaz have to be changed to english
-            $table->integer('sum'); 
-            $table->integer('skidaka'); // skidka have to be changed to english how much he make percentage
-            $table->integer('oplachno'); // oplachno have to be changed to english how much he pay
-            $table->integer('ostatok'); // ostatok have to be english
-            $table->text('comment');
-            $table->date('deadline');
+            $table->string('kolvo'); 
+            $table->integer('stoimost_zakaz'); 
+            $table->integer('sena_zakaz'); // skidka have to be changed to english how much he make percentage
+            $table->integer('obshiye_summa'); // oplachno have to be changed to english how much he pay
+            $table->integer('oplachno'); // ostatok have to be english
+            $table->text('ostotok');
+            $table->text('zametka');
+            $table->date('srok');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
