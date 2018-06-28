@@ -5,6 +5,8 @@
 @section('content')
     @include('shared.navbartop')
 
+    @include('sweetalert::alert')
+
     <div class="container-fluid rasxod-page">
         <div class="">
             @include('shared.leftbarnav')

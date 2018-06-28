@@ -32,6 +32,7 @@
     <link href="{{ asset('css/fileup.css') }}" rel="stylesheet">
     <script src="{{ asset('js/jqueryold.js') }}"></script>
     <script src="{{ asset('js/bootstrap.js') }}"></script>
+    <script src="https://unpkg.com/sweetalert2@7.18.0/dist/sweetalert2.all.js"></script>
     @yield('css')
 
 </head>
@@ -42,15 +43,10 @@
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script> -->
 
-
     <!-- Latest compiled and minified JavaScript -->
     <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script> -->
-
-
-
     <!-- Scripts -->
 
-    
     <script src="{{ asset('js/custom.js') }}"></script>
     <!-- <script src="{{ asset('js/fileup.js') }}"></script> -->
     @yield('js')

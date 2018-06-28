@@ -8,6 +8,7 @@ use AccountSystem\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Validator;
 use AccountSystem\Model\Admin;
+use Alert;
 
 
 class HomeController extends Controller
@@ -28,7 +29,7 @@ class HomeController extends Controller
             'title'             => 'Account System',
             'addurl'            => '',
             'savedata'          => '',
-            'print'             => 'printpage',
+            'print'             => '',
             'goback'            => ''
         ]);
     }

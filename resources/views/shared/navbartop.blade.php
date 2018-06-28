@@ -28,7 +28,7 @@
                     @endif
 
                     @if($print)
-                        <li><a href="" target="_blank"><i class="fa fa-print fa-lg"></i></a></li>
+                        <li><a href="{{ route($print) }}" target="_blank"><i class="fa fa-print fa-lg"></i></a></li>
                     @endif
 
                     <li class="dropdown">

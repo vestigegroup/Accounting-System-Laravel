@@ -3,7 +3,7 @@
         <a href="{{ route('income.index') }}" class="list-group-item"> 
             <i class="text-center fa fa-arrow-down fa-fw" style="background-color: #0db72d;"></i> <span class="text-uppercase">Приход</span>
         </a>
-        <a href="" class="list-group-item"> 
+        <a href="{{ route('outgo.index') }}" class="list-group-item"> 
             <i class="text-center fa fa-arrow-up fa-fw" style="background-color: #8f111a;"></i>  <span class="text-uppercase">Расход</span>
         </a>
         <a href="" class="list-group-item"> 

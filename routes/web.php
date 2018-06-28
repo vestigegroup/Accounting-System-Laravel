@@ -15,3 +15,9 @@ Route::get('home', 'HomeController@index')->name('home');
 
 // Income routes
 Route::resource('income', 'IncomesController');
+Route::get('income/deleteAjax/{id}', 'IncomesController@deleteAjax')->name('income.deleteAjax');
+Route::get('incomeprintpdf', 'IncomesController@printIncome')->name('income.printpdf');
+
+Route::resource('outgo', 'OutgoController');
+Route::get('outgo/deleteAjax/{id}', 'OutgoController@deleteAjax')->name('outgo.deleteAjax');
+

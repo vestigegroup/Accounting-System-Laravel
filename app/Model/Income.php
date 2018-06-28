@@ -4,6 +4,9 @@ namespace AccountSystem\Model;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+// use Carbon\Carbon;
+// \Carbon\Carbon::setToStringFormat('d-m-Y');
+
 
 
 class Income extends Model
@@ -13,7 +16,7 @@ class Income extends Model
 
     protected $table="incomes";
 
-    // protected $dates = ['deleted_at'];
+    // protected $dates = ['created_at'];
 
     protected $fillable = [ 'customer_name', 'company_name', 'type_of_zakaz', 'zakaz', 'kolvo', 'stoimost_zakaz', 'sena_zakaz', 'obshiye_summa', 'oplachno', 'ostotok', 'zametka', 'srok'];
 
