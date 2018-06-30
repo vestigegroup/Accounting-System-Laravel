@@ -18,6 +18,12 @@ Route::resource('income', 'IncomesController');
 Route::get('income/deleteAjax/{id}', 'IncomesController@deleteAjax')->name('income.deleteAjax');
 Route::get('incomeprintpdf', 'IncomesController@printIncome')->name('income.printpdf');
 
+// Outgo routes
 Route::resource('outgo', 'OutgoController');
 Route::get('outgo/deleteAjax/{id}', 'OutgoController@deleteAjax')->name('outgo.deleteAjax');
+
+// Sotrudniki
+Route::resource('sotrudniki', 'SotrudnikiController');
+Route::get('sotrudniki/deleteAjax/{id}', 'SotrudnikiController@deleteAjax')->name('sotrudniki.deleteAjax');
+
 

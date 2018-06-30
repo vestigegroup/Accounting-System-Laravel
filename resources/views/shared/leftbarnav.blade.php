@@ -9,7 +9,7 @@
         <a href="" class="list-group-item"> 
             <i class="text-center fa fa-users fa-fw" style="background-color: #00917e;"></i>  <span class="text-uppercase">Клиенты</span>
         </a>
-        <a href="" class="list-group-item"> 
+        <a href="{{ route('sotrudniki.index') }}" class="list-group-item"> 
             <i class="text-center fa fa-user fa-fw" style="background-color: #2851aa;"></i>  <span class="text-uppercase">Сотрудники</span>
         </a>
         <a href="" class="list-group-item">

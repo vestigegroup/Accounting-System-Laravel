@@ -128,7 +128,6 @@ class OutgoController extends Controller
         //
          try
         {
-
             $outgo = Outgo::findOrFail($id);
 
             $outgo->update($request->all());

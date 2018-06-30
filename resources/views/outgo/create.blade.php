@@ -324,6 +324,8 @@
 <script type="text/javascript">
    
 
+   // TODO
+
     $('.btn-add').click(function(){
 
         var i = 1;
@@ -344,20 +346,15 @@
         i++;
     });
     
-    $('.btn-minus').click(function(){
-        // var a = $(this).val();
-        alert("hello");
-        // $(this).parent().remove();
+    // $('.btn-minus').click(function(){
+    //     var a = $(this).val();
 
-        return false;
-    });
+    //     $(this).parent().remove();
+
+    //     return false;
+    // });
     
 
-    function hello() {
-        alert('hello');
-
-        return false;
-    }
 
 </script>
 
