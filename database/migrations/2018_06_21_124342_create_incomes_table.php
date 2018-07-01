@@ -24,8 +24,8 @@ class CreateIncomesTable extends Migration
             $table->integer('sena_zakaz'); // skidka have to be changed to english how much he make percentage
             $table->integer('obshiye_summa'); // oplachno have to be changed to english how much he pay
             $table->integer('oplachno'); // ostatok have to be english
-            $table->text('ostotok');
-            $table->text('zametka');
+            $table->integer('ostotok');
+            $table->text('zametka')->nullable();
             $table->date('srok');
             $table->timestamps();
             $table->softDeletes();

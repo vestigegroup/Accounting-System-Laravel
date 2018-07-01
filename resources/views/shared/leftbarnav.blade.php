@@ -12,7 +12,7 @@
         <a href="{{ route('sotrudniki.index') }}" class="list-group-item"> 
             <i class="text-center fa fa-user fa-fw" style="background-color: #2851aa;"></i>  <span class="text-uppercase">Сотрудники</span>
         </a>
-        <a href="" class="list-group-item">
+        <a href="{{ route('dolgi.index') }}" class="list-group-item">
             <i class="text-center fa fa-usd fa-fw" style="background-color: #0094c9;"></i>  <span class="text-uppercase">Долги</span>
         </a>
         <a href="" class="list-group-item">

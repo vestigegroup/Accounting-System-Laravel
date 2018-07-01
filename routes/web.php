@@ -26,4 +26,7 @@ Route::get('outgo/deleteAjax/{id}', 'OutgoController@deleteAjax')->name('outgo.d
 Route::resource('sotrudniki', 'SotrudnikiController');
 Route::get('sotrudniki/deleteAjax/{id}', 'SotrudnikiController@deleteAjax')->name('sotrudniki.deleteAjax');
 
+// Dolgi
+Route::resource('dolgi', 'DolgiController');
+
 
