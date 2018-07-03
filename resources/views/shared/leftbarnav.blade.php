@@ -21,9 +21,9 @@
         <a href="" class="list-group-item">
             <i class="text-center fa fa-registered fa-fw" style="background-color: #abd745;"></i>  <span class="text-uppercase">Рамз</span>
         </a>
-        <a href="" class="list-group-item">
+        <!-- <a href="" class="list-group-item">
             <i class="text-center fa fa-list fa-fw" style="background-color: #6d2890;"></i>  <span class="text-uppercase">Прайс лист</span>
-        </a>
+        </a> -->
         <a href="" class="list-group-item">
             <i class="text-center fa fa-file fa-fw" style="background-color: #b35138;"></i>  <span class="text-uppercase">Отчеты</span>
         </a>
