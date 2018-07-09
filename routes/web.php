@@ -12,6 +12,9 @@ Route::post('logout', 'Auth\LoginController@logout')->name('logout');
 
 // 
 Route::get('home', 'HomeController@index')->name('home');
+Route::get('home/getrasxodi', 'HomeController@getrasxodasJson');
+Route::get('home/getprixodi', 'HomeController@getprixodiJson');
+
 
 // Income routes
 Route::resource('income', 'IncomesController');
@@ -28,5 +31,11 @@ Route::get('sotrudniki/deleteAjax/{id}', 'SotrudnikiController@deleteAjax')->nam
 
 // Dolgi
 Route::resource('dolgi', 'DolgiController');
+
+// Prsorochniye
+Route::resource('prosrochniye', 'ProsrochnieController');
+
+// Ramz
+Route::resource('ramz', 'RamzController');
 
 

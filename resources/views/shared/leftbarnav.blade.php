@@ -15,10 +15,10 @@
         <a href="{{ route('dolgi.index') }}" class="list-group-item">
             <i class="text-center fa fa-usd fa-fw" style="background-color: #0094c9;"></i>  <span class="text-uppercase">Долги</span>
         </a>
-        <a href="" class="list-group-item">
+        <a href="{{ route('prosrochniye.index') }}" class="list-group-item">
             <i class="text-center fa fa-exclamation-triangle fa-fw" style="background-color: #ef9e2d;"></i>  <span class="text-uppercase">Просрочние</span>
         </a>
-        <a href="" class="list-group-item">
+        <a href="{{ route('ramz.index') }}" class="list-group-item">
             <i class="text-center fa fa-registered fa-fw" style="background-color: #abd745;"></i>  <span class="text-uppercase">Рамз</span>
         </a>
         <!-- <a href="" class="list-group-item">

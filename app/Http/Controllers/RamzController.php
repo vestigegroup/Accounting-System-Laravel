@@ -3,20 +3,32 @@
 namespace AccountSystem\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Alert;
 
-class PricelistController extends Controller
+use AccountSystem\Model\Outgo;
+
+class RamzController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-
-    // TODO
-
     public function index()
     {
-        //
+        $outgos = Outgo::where('tip_rasxod', 'ramz')->orderBy('created_at', 'desc')->limit('50')->get();
+
+        return view('ramz.index', [
+            'fa'                => 'fa fa-exclamation-triangle fa-fw',
+            'title'             => 'Ramz',
+            'addurl'            => '',
+            'savedata'          => '',
+            'print'             => '',
+            'goback'            => '',
+            'outgos'           => $outgos
+        ]);
     }
 
     /**
