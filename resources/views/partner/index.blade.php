@@ -3,12 +3,11 @@
 
 <style type="text/css">
     .navbar-default {
-        background-color: #2851aa !important;
+        background-color: #6d2890 !important;
     }
     .navbar-brand {
         color: white !important;
-    }
-    .fa {
+    }.fa {
         color: white !important;
     }
     .caret {
@@ -104,51 +103,31 @@
     @include('shared.navbartop')
     @include('sweetalert::alert')
 
-    <div class="container-fluid rasxod-page" style="min-height: 853px;margin-top: 0px;">
+    <div class="container-fluid rasxod-page" style="min-height: 853px;">
         <div class="">
             @include('shared.leftbarnav')
-            <div class="col-xs-12 col-sm-8 col-md-9 col-lg-10 rasxod-menu-spisokall" style="margin-top: 0px;">
+            <div class="col-xs-12 col-sm-8 col-md-9 col-lg-10 rasxod-menu-spisokall  ">
                 @include('shared.error')
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 " style="padding: 0px;margin: 0px;">
                     <!-- Content You may write your code here -->
-                    @foreach($sotrudnikis as $sotrudniki)
-                        <div class="col-md-2 product-men" id="sotrudniki_{{ $sotrudniki->id }}" style="margin-top:0px;">
+                    @foreach($partners as $partner)
+                        <div class="col-md-2 product-men" id="sotrudniki_{{ $partner->id }}">
                             <div class="men-pro-item simpleCart_shelfItem">
                                 <div class="men-thumb-item">
                                     <div class="images">
-                                        <img src="{{ $sotrudniki->photo_path }}" alt="" class="pro-image-front">
+                                        <img src="{{ $partner->photo_path }}" alt="" class="pro-image-front">
                                     </div>
                                     <div class="product-new-top">
-                                        <a href="{{ route('sotrudniki.edit', ['id' => $sotrudniki->id ]) }}" style="background-color: orange!important;padding: 4px;display: block;border-radius: 0px;" class="btn">
+                                        <a href="{{ route('partner.edit', ['id' => $partner->id ]) }}" style="background-color: orange!important;padding: 4px;display: block;border-radius: 0px;" class="btn">
                                             <span class=""><i class="fa fa-pencil fa-fw"></i></span>
                                         </a>
-                                        <button style="background-color: #fc636b!important;padding: 4px;display: block;border-radius: 0px;" value="{{ $sotrudniki->id }}" class="deletesotrudniki btn">
+                                        <button style="background-color: #fc636b!important;padding: 4px;display: block;border-radius: 0px;" value="{{ $partner->id }}" class="deletesotrudniki btn">
                                             <span class=""><i class="fa fa-trash fa-fw"></i></span>
                                         </button>
                                     </div>
                                 </div>
                                 <div class="item-info-product">
-                                    <h4 class="text-capitalize"><a href="{{ route('sotrudniki.show', [ 'id' => $sotrudniki->id ]) }}">{{ $sotrudniki->imja_sotrudnika }}</a></h4>
-                                    <div class="clearfix" style="margin-top: 0px;color:#337ab7;font-weight: bold;">
-                                        <div class="col-md-12">
-                                            <div class="col-md-6 text-right" style="padding: 0px;">
-                                                Зарплата:
-                                            </div>
-                                            <div class="col-md-6 text-left" style="padding: 0px;">
-                                                &nbsp;{{ $sotrudniki->zarplata }}
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12">
-                                            <div class="col-md-6 text-right" style="padding: 0px;">
-                                                Получено:
-                                            </div>
-                                            <div class="col-md-6 text-left" style="padding: 0px;">
-                                               @foreach($sotrudniki->getSumma as $summa)
-                                                    &nbsp;{{  $summa->total }}
-                                               @endforeach
-                                            </div>
-                                        </div>
-                                    </div>                                  
+                                    <h4 class="text-capitalize"><a href="{{ route('partner.show', ['id' => $partner->id ]) }}">{{ $partner->nazivaniye_firma }}</a></h4>                                 
                                 </div>
                             </div>
                         </div>
@@ -158,29 +137,28 @@
         </div>
     </div>
 
- <!-- Modal for Delete Zarplata -->
+ <!-- Modal for Delete  -->
 <div class="modal fade" id="deletesotrudniki" tabindex="-1" role="dialog">
     <div class='modal-dialog'>
         <!-- Modal content-->
-        <div class='modal-content'>
+        <<div class='modal-content'>
             <div class='modal-header'>
                 <button type='button' class='close' data-dismiss='modal'>&times;</button>
-                <h4 class='modal-title'></h4>
+                <h4 class='modal-title'>Удалить</h4>
             </div>
             <div class='modal-body'>
                 <div class="">
-                    <h4 class="text-center text-danger"> Запись будеть удален.</h4>
-                    <h4 class="text-center text-danger">Вы действительно хотите удалит запись?</h4>
+                    <h4 class="text-center text-danger"> Запис будет удалить.</h4>
+                    <h4 class="text-center text-danger">Ви действо хотет удалить?</h4>
                 </div>
             </div>
             <div class='modal-footer'>
-                <button type='button' class='btn btn-danger deletebtn' value=''>Удалит</button>
-                <!-- <button type='button' class='btn btn-default' data-dismiss='modal'>Close</button> -->
+                <button type='button' class='btn btn-danger deletebtn' value=''>Да</button>
+                <button type='button' class='btn btn-default' data-dismiss='modal'>Нет</button>
             </div>
         </div>
     </div>
 </div>
-
 
     @include('shared.footer')
 
@@ -193,7 +171,8 @@
 <script type="text/javascript">
     $(document).ready(function() {
         $('#dataTables-example').DataTable({
-            responsive: true
+            responsive: true,
+            "bDestroy": true
         });
     });
 </script>
@@ -208,7 +187,7 @@
             $('.deletebtn').click(function(){
                 $.ajax({
                     type: "get",
-                    url:"/sotrudniki/deleteAjax/" + task_id,
+                    url:"/partner/deleteAjax/" + task_id,
                     success: function (data) {
                         $('#deletesotrudniki').modal('hide');
                         $("#sotrudniki_" + data[1]).fadeOut(800, function () {

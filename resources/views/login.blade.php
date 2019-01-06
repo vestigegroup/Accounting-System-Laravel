@@ -7,7 +7,7 @@
 }
 body {
 	/* For fixed navbar */
-    background-color: #074f7c;
+    background-color: #0059a5;
 }
 
 /* Font owesome */
@@ -46,12 +46,13 @@ body {
 @section('content')
 <div class="container">
     <div class="row">
-        <div class="col-md-6 col-md-push-3">
-            <div class="login-top text-center">
+        <div class="col-md-4 col-md-push-4">
+            <img src="{{ url('images/logo/logo.png') }}" class="img-responsive">
+            <!-- <div class="login-top text-center">
                 <p class="login-header">
                    RAMZ SYSTEM
                 </p>
-            </div>
+            </div> -->
         </div>
     </div>
     <div class="row">

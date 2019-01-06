@@ -3,7 +3,8 @@
 
 <style type="text/css">
     .navbar-default {
-        background-color: #ef9e2d !important;
+        /*background-color: #8f111a !important;*/
+        background-color: #00917e !important;
     }
     .navbar-brand {
         color: white !important;
@@ -17,18 +18,8 @@
     .dropdown-menu .fa, table .fa {
         color: black !important;
     }
-    @keyframes alert-customer {
-        from   {color: #fff;}
-        to  {color: #ef9e2d;}
-    }
-
-    /* The element to apply the animation to */
-    .customer-alert {
-        margin-left: 10px;
-        background-color: inherit;
-        animation-name: alert-customer;
-        animation-duration: 2s;
-        animation-iteration-count: infinite;
+    .btn .fa {
+        color: white !important;
     }
 </style>
 <!-- DataTables CSS -->
@@ -40,10 +31,10 @@
     @include('shared.navbartop')
     @include('sweetalert::alert')
 
-    <div class="container-fluid rasxod-page" style="min-height: 853px;">
+    <div class="container-fluid rasxod-page">
         <div class="">
             @include('shared.leftbarnav')
-            <div class="col-xs-12 col-sm-8 col-md-9 col-lg-10 rasxod-menu-spisokall  ">
+            <div class="col-xs-12 col-sm-8 col-md-9 col-lg-10 rasxod-menu-spisokall" style="min-height: 853px;">
                 @include('shared.error')
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 " style="padding: 10px;">
                     <!-- Content You may write your code here -->
@@ -55,34 +46,21 @@
                                     <th class="text-center"> Название фирмы </th>
                                     <th class="text-center"> Тип заказа </th>
                                     <th class="text-center"> Заказ </th>
-                                    <th class="text-center"> Срок: </th>
+                                    <th class="text-center"> Количество </th>
+                                    <th class="text-center"> Дата </th>
                                 </tr>
                             </thead>
                             <tbody class="clearfix">
-                                <!--  -->
                                 @foreach($incomes as $income)
-                                    <tr>
-                                        <td>
-                                            {{ $income->customer_name }}
-                                        </td>
-                                        <td>
-                                            {{ $income->company_name }}
-                                        </td>
-                                        <td>
-                                            {{ $income->type_of_zakaz }}
-                                        </td>
-                                        <td>
-                                            {{ $income->zakaz }}
-                                        </td>
-                                        <td>
-                                            @if($income->srok >= 0)
-                                                <i class="fa fa-circle customer-alert"> &nbsp;</i> 
-                                                {{ Carbon\Carbon::parse($income->srok)->day  }} осталось дней
-                                            @endif
-                                        </td>
+                                    <tr class="odd gradeX" id="klienty_{{$income->id}}">
+                                        <td class="text-center">{{ $income->customer_name }}</td>
+                                        <td class="text-center">{{ $income->company_name }}</td>
+                                        <td class="text-center">{{ $income->type_of_zakaz }}</td>
+                                        <td class="text-center">{{ $income->zakaz }}</td>
+                                        <td class="text-center">{{ $income->kolvo }}</td>
+                                        <td class="text-center">{{ $income->created_at }}</td>
                                     </tr>
                                 @endforeach
-
                             </tbody>
                         </table>
                     </div>
@@ -90,8 +68,8 @@
             </div>
         </div>
     </div>
-
     @include('shared.footer')
+
 @endsection
 @section('js')
 <!-- DataTables JavaScript -->
@@ -104,16 +82,5 @@
             responsive: true
         });
     });
-
-    $('.dolgi').click(function(){
-        $('#platitdolgi').modal('show');
-
-        var id = $(this).val();
-        
-        $('.custommer_id').attr('value', id);
-        $('.customer_name').attr('value', $('#income_'+id).find('#person_name').text());
-
-    });
 </script>
-
 @endsection

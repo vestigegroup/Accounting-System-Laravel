@@ -32,6 +32,7 @@
     <link href="{{ asset('css/fileup.css') }}" rel="stylesheet">
     <script src="{{ asset('js/jqueryold.js') }}"></script>
     <script src="{{ asset('js/bootstrap.js') }}"></script>
+    
     <script src="https://unpkg.com/sweetalert2@7.18.0/dist/sweetalert2.all.js"></script>
     @yield('css')
 

@@ -31,31 +31,29 @@
     <div class="container-fluid rasxod-page">
         <div class="">
             @include('shared.leftbarnav')
-            <div class="col-xs-12 col-sm-8 col-md-9 col-lg-10 rasxod-menu-spisokall  ">
+            <div class="col-xs-12 col-sm-8 col-md-9 col-lg-10 rasxod-menu-spisokall" style="min-height: 853px;">
                 @include('shared.error')
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 " style="padding: 10px;">
                     <!-- Content You may write your code here -->
-                    <div class="table-responsive">
+                    <div class="">
                         <table width="100%" class="table table-striped table-bordered table-hover clearfix" id="dataTables-example">
                             <thead>
                                 <tr>
-                                    <th class="text-center"><i class="fa fa-users"></i> Имя Клиента </th>
-                                    <th class="text-center"><i class="fa fa-bank"></i> Називание Фирма </th>
-                                    <th class="text-center"><i class="fa fa-question"></i> Тип Заказ </th>
-                                    <th class="text-center"><i class="fa fa-exclamation"></i> Заказ </th>
-                                    <th class="text-center"><i class="fa fa-usd"></i> Остоток: </th>
+                                    <th class="text-center"> Имя клиента </th>
+                                    <th class="text-center"> Название фирмы </th>
+                                    <th class="text-center"> Тип заказа </th>
+                                    <th class="text-center"> Заказ </th>
+                                    <th class="text-center"> Остаток: </th>
                                 </tr>
                             </thead>
-                            <tbody class="clearfix">
-                            <!--  -->
-
+                            <tbody>
                                @foreach($incomes as $income )
                                     <tr id="income_{{ $income->id }}">
-                                        <td id="person_name">{{ $income->customer_name }}</td>
-                                        <td>{{ $income->company_name }}</td>
-                                        <td>{{ $income->type_of_zakaz }}</td>
-                                        <td>{{ $income->zakaz }}</td>
-                                        <td>{{ $income->ostotok }} <button class="btn btn-danger btn-sm pull-right dolgi" value="{{ $income->id }}"><i class="fa fa-usd" style="color: white !important;"></i></button></td>   
+                                        <td id="person_name" class="text-center">{{ $income->customer_name }}</td>
+                                        <td class="text-center">{{ $income->company_name }}</td>
+                                        <td class="text-center">{{ $income->type_of_zakaz }}</td>
+                                        <td class="text-center">{{ $income->zakaz }}</td>
+                                        <td class="text-center">{{ $income->ostotok }} <button class="btn btn-danger btn-xs pull-right dolgi" value="{{ $income->id }}"><i class="fa fa-usd" style="color: white !important;"></i></button></td>   
                                     </tr>
 
                                     @if($income->dolgiData)
@@ -126,7 +124,7 @@
                     <hr style="padding: 0px; margin: 10px;">
                     <div class="col-sm-12">
                         <div class="col-sm-3 text-right">
-                           <label class="" style="line-height: 1.3em;padding: 6px 12px;"> Date :</label>
+                           <label class="" style="line-height: 1.3em;padding: 6px 12px;"> Дата :</label>
                         </div>
                         <div class="col-sm-9">
                             <div class="input-group">
@@ -142,8 +140,8 @@
 
             </div>
             <div class='modal-footer'>
-                <button type='button' class='btn btn-default' data-dismiss='modal'>Close</button>
-                <button type='submit' class='btn btn-danger' form="dolgi_store" >Oplatit</button>
+                <button type='button' class='btn btn-default' data-dismiss='modal'>Закрит</button>
+                <button type='submit' class='btn btn-danger' form="dolgi_store" >Оплатит</button>
             </div>
         </div>
     </div>
@@ -158,6 +156,12 @@
 <script src="{{ URL::asset('js/dataTables.bootstrap.min.js') }}"></script>
 <script src="{{ URL::asset('js/dataTables.responsive.js') }}"></script>
 <script type="text/javascript">
+    $(document).ready(function() {
+        $('#dataTables-example').DataTable({
+            responsive: true
+        });
+    });
+
     $('.dolgi').click(function(){
         $('#platitdolgi').modal('show');
 

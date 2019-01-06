@@ -6,17 +6,16 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Alert;
-use DB;
 
-use AccountSystem\Model\Sotrudniki;
+use AccountSystem\Model\Partner;
 
-class SotrudnikiController extends Controller
+class PartnerController extends Controller
 {
     //
     public function __construct() {
         $this->middleware('admin.auth');
     }
-
+    
     /**
      * Display a listing of the resource.
      *
@@ -24,16 +23,16 @@ class SotrudnikiController extends Controller
      */
     public function index()
     {
-        $sotrudniki = Sotrudniki::with('getSumma')->orderBy('created_at', 'desc')->limit('50')->get();
+        $partner = Partner::get();
 
-        return view('sotrudniki.index', [
-            'fa'                => 'fa fa-user fa-fw',
-            'title'             => 'Сотрудники',
-            'addurl'            => 'sotrudniki.create',
+        return view('partner.index', [
+            'fa'                => 'fa fa-list fa-fw',
+            'title'             => 'Партнёры',
+            'addurl'            => 'partner.create',
             'savedata'          => '',
             'print'             => '',
             'goback'            => '',
-            'sotrudnikis'       => $sotrudniki
+            'partners'           => $partner
         ]);
     }
 
@@ -45,11 +44,11 @@ class SotrudnikiController extends Controller
     public function create()
     {
         //
-        return view('sotrudniki.create', [
-            'fa'                => 'fa fa-user fa-fw',
-            'title'             => 'Сотрудники',
+        return view('partner.create', [
+            'fa'                => 'fa fa-list fa-fw',
+            'title'             => 'Partner',
             'addurl'            => '',
-            'savedata'          => 'sotrudnikiform',
+            'savedata'          => 'partnersave',
             'print'             => '',
             'goback'            => 'yes',
         ]);
@@ -63,27 +62,29 @@ class SotrudnikiController extends Controller
      */
     public function store(Request $request)
     {
-
+        //
         // TODO
         $this->validate($request, [
 
         ]);
 
-        $sotrudniki = new Sotrudniki();
-
-                
-        $sotrudniki->imja_sotrudnika            = $request->imja_sotrudnika;
-        $sotrudniki->data_rojdeniya             = $request->data_rojdeniya;
-        $sotrudniki->mesto_rojdeniya            = $request->mesto_rojdeniya;
-        $sotrudniki->telefon                    = $request->telefon;
-        $sotrudniki->zarplata                   = $request->zarplata;
-        $sotrudniki->doljnost                   = ($request->doljnost)?($request->doljnost):'nothing';
+        $partner = new Partner();
+ 
+        $partner->nazivaniye_firma          = $request->nazivaniye_firma;
+        $partner->tip_zanyata               = $request->tip_zanyata;
+        $partner->marketolog                = $request->marketolog;
+        $partner->tip_skidka                = $request->tip_skidka;
+        $partner->telefon                   = $request->telefon;
+        $partner->mail                      = $request->mail;
+        $partner->website                   = $request->website;
+        $partner->adress                    = $request->adress;
+        $partner->zametka                   = $request->zametka;
 
         if ($request->photo_path) {
-            // Profile photo
+            // Logo photo
             $photopath = "";
             if ($request->hasFile('photo_path')) {
-                $destinationpath    = 'images/sotrudniki';
+                $destinationpath    = 'images/partner';
                 $imagefile          = $request->photo_path;                    
                 $extension          = $imagefile->getClientOriginalExtension();
                 $fileName           = str_slug(str_random(20)).'.'.$extension;
@@ -91,16 +92,16 @@ class SotrudnikiController extends Controller
                 $imagefile->move($destinationpath, $fileName); 
                 $photopath = $destinationpath.'/'.$fileName;
             }
-        
-            $sotrudniki->photo_path = $photopath;
         }
 
-        $sotrudniki->save();
+        $partner->photo_path = $photopath;
 
+        $partner->save();
+
+    
         alert()->success('Успешно', '')->autoClose(4000);
 
-        return redirect()->route('sotrudniki.index');
-
+        return redirect()->route('partner.index');
     }
 
     /**
@@ -111,18 +112,18 @@ class SotrudnikiController extends Controller
      */
     public function show($id)
     {
-        //
-        $sotrudniki = Sotrudniki::findOrFail($id);
+        $partner = Partner::findOrFail($id);
 
-        return view('sotrudniki.show', [
-            'fa'                => 'fa fa-user fa-fw',
-            'title'             => 'Сотрудники',
+        return view('partner.show', [
+            'fa'                => 'fa fa-list fa-fw',
+            'title'             => 'Partner',
             'addurl'            => '',
             'savedata'          => '',
             'print'             => '',
-            'goback'            => 'yes',
-            'sotrudniki'        => $sotrudniki
+            'goback'            => '',
+            'partner'           => $partner
         ]);
+
     }
 
     /**
@@ -136,19 +137,19 @@ class SotrudnikiController extends Controller
         //
         try
         {
-            $sotrudniki = Sotrudniki::findOrFail($id);
+            $partner = Partner::findOrFail($id);
 
             $params = [
                 'fa'                => 'fa fa-user fa-fw',
-                'title'             => 'Сотрудники',
+                'title'             => 'Partner',
                 'addurl'            => '',
-                'savedata'          => 'sotrudnikiform',
+                'savedata'          => 'partnersaveedited',
                 'print'             => '',
                 'goback'            => 'yes',
-                'sotrudniki'        => $sotrudniki
+                'partner'           => $partner
             ];
 
-            return view('sotrudniki.edit')->with($params);
+            return view('partner.edit')->with($params);
         }
         catch (ModelNotFoundException $ex) 
         {
@@ -168,26 +169,31 @@ class SotrudnikiController extends Controller
      */
     public function update(Request $request, $id)
     {
+        //
         try {
-            $sotrudniki             = Sotrudniki::findOrFail($id);
 
-            $sotrudniki->imja_sotrudnika            = $request->imja_sotrudnika;
-            $sotrudniki->data_rojdeniya             = $request->data_rojdeniya;
-            $sotrudniki->mesto_rojdeniya            = $request->mesto_rojdeniya;
-            $sotrudniki->telefon                    = $request->telefon;
-            $sotrudniki->zarplata                   = $request->zarplata;
-            $sotrudniki->doljnost                   = $request->doljnost;
+            $partner                            = Partner::findOrFail($id);
+
+            $partner->nazivaniye_firma          = $request->nazivaniye_firma;
+            $partner->tip_zanyata               = $request->tip_zanyata;
+            $partner->marketolog                = $request->marketolog;
+            $partner->tip_skidka                = $request->tip_skidka;
+            $partner->telefon                   = $request->telefon;
+            $partner->mail                      = $request->mail;
+            $partner->website                   = $request->website;
+            $partner->adress                    = $request->adress;
+            $partner->zametka                   = $request->zametka;
 
 
-            // Doctors Profile photo
+            // Profile photo
             $photopath = "";
             if ($request->hasFile('photo_path')) {
-                if ($sotrudniki->photo_path) {
-                    $path = public_path($sotrudniki->photo_path);
+                if ($partner->photo_path) {
+                    $path = public_path($partner->photo_path);
                     unlink($path);
                 }
 
-                $destinationpath    = 'images/sotrudniki';
+                $destinationpath    = 'images/partner';
                 $imagefile          = $request->photo_path;                    
                 $extension          = $imagefile->getClientOriginalExtension();
                 $fileName           = str_slug(str_random(20)).'.'.$extension;
@@ -195,14 +201,14 @@ class SotrudnikiController extends Controller
                 $imagefile->move($destinationpath, $fileName); 
                 $photopath = $destinationpath.'/'.$fileName;
 
-                $sotrudniki->photo_path = $photopath;
+                $partner->photo_path = $photopath;
             }
 
-            $sotrudniki->update();
+            $partner->update();
 
             alert()->success('Успешно', '')->autoClose(4000);
 
-            return redirect()->route('sotrudniki.index');
+            return redirect()->route('partner.index');
 
         } 
         catch (ModelNotFoundException $ex) 
@@ -212,6 +218,7 @@ class SotrudnikiController extends Controller
                 return response()->view('shared.'.'error');
             }
         }
+
     }
 
     /**
@@ -229,21 +236,21 @@ class SotrudnikiController extends Controller
     public function deleteAjax(Request $request) {
         if ($request->ajax()) {
             // get request ID
-            $sotrudniki = $request->id;
-            if ($sotrudniki) {
+            $partner = $request->id;
+            if ($partner) {
                 // Search it from database
                 try {
-                    $sotrudniki_data = Sotrudniki::find($sotrudniki);
-                    if ($sotrudniki_data) {
-                        if ($sotrudniki_data->photo_path) {
-                            $path = public_path($sotrudniki_data->photo_path);
+                    $partner_data = Partner::find($partner);
+                    if ($partner_data) {
+                        if ($partner_data->photo_path) {
+                            $path = public_path($partner_data->photo_path);
                             unlink($path);
                         }
 
-                        $result  = $sotrudniki_data->delete();
+                        $result  = $partner_data->delete();
 
                         if ($result) {
-                            return response()->json(['success', $sotrudniki]);
+                            return response()->json(['success', $partner]);
                         } else {
                             return response()->json('error');
                         }
@@ -255,7 +262,7 @@ class SotrudnikiController extends Controller
                 }
             }
         } else {
-            return redirect()->route('sotrudniki.index');
+            return redirect()->route('partner.index');
         }
     }
 }

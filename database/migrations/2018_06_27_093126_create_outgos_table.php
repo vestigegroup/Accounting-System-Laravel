@@ -23,7 +23,9 @@ class CreateOutgosTable extends Migration
             $table->string('kol_vo');
             $table->integer('sena');
             $table->integer('obwiya');
-            $table->string('tip_rasxod');
+            $table->integer('tip_id');
+            $table->integer('tip_type_id');
+            $table->string('tip_name');
             $table->softDeletes();
             $table->timestamps();
         });

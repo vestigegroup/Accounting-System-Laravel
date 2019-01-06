@@ -6,10 +6,12 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Alert;
-
+use Carbon\Carbon;
+use DB;
 
 use AccountSystem\Model\Income;
-
+// use AccountSystem\Model\Outgo;
+use AccountSystem\Model\IncomesOutgos;
 
 class IncomesController extends Controller
 {
@@ -25,9 +27,8 @@ class IncomesController extends Controller
      */
     public function index()
     {
-        $income = Income::orderBy('created_at', 'desc')->limit('50')->get();
-
-        //
+        // 
+        $income = Income::with('getObshiye')->orderBy('created_at', 'desc')->limit('50')->get();
         return view('income.index', [
             'fa'                => 'fa fa-arrow-down fa-fw',
             'title'             => 'Приход',
@@ -65,20 +66,47 @@ class IncomesController extends Controller
      */
     public function store(Request $request)
     {
-
         // TODO
         $this->validate($request, [
 
         ]);
 
-        $income = Income::create($request->all());
-        
-        if ($income) {
-            alert()->success('Post Created', 'Successfully')->autoClose(4000);
-            return redirect()->route('income.index');
+        $income = Income::create([
+            'customer_name'     => $request->customer_name,
+            'company_name'      => $request->company_name,
+            'type_of_zakaz'     => $request->type_of_zakaz,
+            'zakaz'             => $request->zakaz,
+            'kolvo'             => $request->kolvo,
+            'stoimost_zakaz'    => $request->stoimost_zakaz,
+            'sena_zakaz'        => $request->sena_zakaz,
+            'obshiye_summa'     => $request->obshiye_summa,
+            'oplachno'          => $request->oplachno,
+            'ostotok'           => $request->ostotok,
+            'zametka'           => $request->zametka,
+            'srok'              => $request->srok,
+            'month'             => (integer)Carbon::now()->month
+        ]);
+
+        if ($request->obshiye_summa>=0) {
+            $incomestosum = IncomesOutgos::where('daily', '=', Carbon::now()->format('Y-m-d'))->first();
+
+            if ($incomestosum) {
+                $incomestosum->incomes_sum_daily = $incomestosum->incomes_sum_daily + $request->obshiye_summa;
+
+                $incomestosum->update();
+            } else {
+                IncomesOutgos::create([
+                    'daily' => Carbon::now()->format('Y-m-d'),
+                    'incomes_sum_daily' => $request->obshiye_summa,
+                    'outgos_sum_daily'  => 0
+                ]);
+            }
         }
 
-
+        if ($income) {
+            alert()->success('Успешно', '')->autoClose(4000);
+            return redirect()->route('income.index');
+        }
     }
 
     /**
@@ -89,7 +117,14 @@ class IncomesController extends Controller
      */
     public function show($id)
     {
-       return redirect()->back();
+        return view('income.income', [
+            'fa'                => 'fa fa-arrow-down fa-fw',
+            'title'             => 'Приход',
+            'addurl'            => '',
+            'savedata'          => '',
+            'print'             => '',
+            'goback'            => 'yes',
+        ]);
     }
 
     /**
@@ -137,12 +172,21 @@ class IncomesController extends Controller
     {
         try
         {
-
             $income = Income::findOrFail($id);
+
+            if ($request->obshiye_summa>=0) {
+                $incomestosum = IncomesOutgos::where('daily', '=', Carbon::parse($income->created_at)->format('Y-m-d'))->first();
+
+                if ($incomestosum) {
+                    $incomestosum->incomes_sum_daily = $incomestosum->incomes_sum_daily + $request->obshiye_summa - $income->obshiye_summa;
+
+                    $incomestosum->update();
+                }
+            }
 
             $income->update($request->all());
 
-            alert()->success('Post Created', 'Successfully')->autoClose(5000);
+            alert()->success('Успешно', '')->autoClose(4000);
 
             return redirect()->route('income.index');
         }
@@ -163,9 +207,7 @@ class IncomesController extends Controller
      */
     public function destroy($id)
     {
-        // TODO
-        echo "destroy";
-
+        return response()->route('home');
     }
 
     public function deleteAjax(Request $request) {
@@ -177,6 +219,15 @@ class IncomesController extends Controller
                 try {
                     $income_data = Income::find($income);
                     if ($income_data) {
+
+                        $tocarbon = new Carbon($income_data->created_at);
+
+                        $incomestosum = IncomesOutgos::where('daily', '=', $tocarbon)->first();
+                    
+                        $incomestosum->incomes_sum_daily = $incomestosum->incomes_sum_daily - $income_data->obshiye_summa;
+
+                        $incomestosum->update();
+
                         $result  = $income_data->delete();
 
                         if ($result) {

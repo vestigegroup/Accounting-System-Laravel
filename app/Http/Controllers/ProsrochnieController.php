@@ -7,13 +7,18 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Alert;
 
-
+use Carbon\Carbon;
 use DateTime;
 
 use AccountSystem\Model\Income;
 
 class ProsrochnieController extends Controller
 {
+    //
+    public function __construct() {
+        $this->middleware('admin.auth');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -22,63 +27,16 @@ class ProsrochnieController extends Controller
     public function index()
     {
        
-       $incomes = Income::all();
+        $incomes = Income::where('srok', '>', Carbon::now())->get();
 
-       foreach ($incomes as $income) {
-            
-            $today = date('Y-m-d');
-
-            $end = new DateTime($today);
-
-            $data_income = new DateTime($income->srok);
-
-            $intervals = $data_income->diff($end);
-
-            
-            echo "today:".$today."---------";
-            echo "<br>";
-            echo "srok:".$income->srok;
-        
-
-            echo "<br>";
-
-            $days =  $intervals->format("%d");
-
-            echo $days;
-
-            // echo "<hr>";
-            
-
-            
-
-            // $data_income = $income->srok;
-
-            // $data_diff = $today->diff($data_income);
-
-            // echo $data_diff;
-
-            // echo "<br>";
-
-            // $a =  date_diff($today, $data_income);
-
-            // echo $a;
-            echo "<hr>";
-       }
-
-       die();
-
-               
-
-
-        //
         return view('prosrochniye.index', [
             'fa'                => 'fa fa-exclamation-triangle fa-fw',
             'title'             => 'Просрочние',
-            'addurl'            => 'sotrudniki.create',
+            'addurl'            => '',
             'savedata'          => '',
             'print'             => '',
             'goback'            => '',
-            // 'sotrudnikis'       => $sotrudniki
+            'incomes'            => $incomes
         ]);
 
     }
@@ -91,6 +49,7 @@ class ProsrochnieController extends Controller
     public function create()
     {
         //
+        return response()->route('home');
     }
 
     /**
@@ -102,6 +61,7 @@ class ProsrochnieController extends Controller
     public function store(Request $request)
     {
         //
+        return response()->route('home');
     }
 
     /**
@@ -113,6 +73,7 @@ class ProsrochnieController extends Controller
     public function show($id)
     {
         //
+        return response()->route('home');
     }
 
     /**
@@ -124,6 +85,7 @@ class ProsrochnieController extends Controller
     public function edit($id)
     {
         //
+        return response()->route('home');
     }
 
     /**
@@ -136,6 +98,7 @@ class ProsrochnieController extends Controller
     public function update(Request $request, $id)
     {
         //
+        return response()->route('home');
     }
 
     /**
@@ -147,5 +110,6 @@ class ProsrochnieController extends Controller
     public function destroy($id)
     {
         //
+        return response()->route('home');
     }
 }

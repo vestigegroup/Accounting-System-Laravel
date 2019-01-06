@@ -2,20 +2,23 @@
 
 namespace AccountSystem\Http\Controllers;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Alert;
 
-use AccountSystem\Model\Income;
 
-class KlientyController extends Controller
+use AccountSystem\Model\Plan;
+
+
+class PlanController extends Controller
 {
     //
     public function __construct() {
         $this->middleware('admin.auth');
     }
-
+    
     /**
      * Display a listing of the resource.
      *
@@ -23,18 +26,16 @@ class KlientyController extends Controller
      */
     public function index()
     {
-        //
-        $income = Income::orderBy('created_at', 'desc')->limit('50')->get();
+        $plans = Plan::get();
 
-        //
-        return view('klienty.index', [
-            'fa'                => 'fa fa-users fa-fw',
-            'title'             => 'Клиенты',
-            'addurl'            => 'income.create',
+        return view('plan.index', [
+            'fa'                => 'fa fa-check-circle fa-fw',
+            'title'             => 'план',
+            'addurl'            => 'plan.create',
             'savedata'          => '',
-            'print'             => 'income.printpdf',
+            'print'             => '',
             'goback'            => '',
-            'incomes'            => $income
+            'plans'              => $plans
         ]);
     }
 
@@ -46,7 +47,14 @@ class KlientyController extends Controller
     public function create()
     {
         //
-        return response()->route('home');
+        return view('plan.create', [
+            'fa'                => 'fa fa-home fa-fw',
+            'title'             => 'план',
+            'addurl'            => '',
+            'savedata'          => 'plansave',
+            'print'             => '',
+            'goback'            => 'yes',
+        ]);
     }
 
     /**
@@ -58,7 +66,26 @@ class KlientyController extends Controller
     public function store(Request $request)
     {
         //
-        return response()->route('home');
+        $this->validate($request, [
+
+        ]);
+
+        $plan = Plan::create([
+            'nalog'             => $request->nalog,
+            'arenda'            => $request->arenda,
+            'zarplata'          => $request->zarplata,
+            'komunalni'         => $request->komunalni,
+            'pitanie'           => $request->pitanie,
+            'offisni_rasxod'    => $request->offisni_rasxod,
+            'drugie'            => $request->drugie,
+            'month'             => (integer)Carbon::now()->month,
+            'total'             => $request->nalog + $request->arenda + $request->zarplata + $request->komunalni + $request->pitanie + $request->offisni_rasxod + $request->drugie,
+        ]);
+
+        if ($plan) {
+            alert()->success('Успешно', '')->autoClose(4000);
+            return redirect()->route('plan.index');
+        }
     }
 
     /**
@@ -113,25 +140,17 @@ class KlientyController extends Controller
     public function deleteAjax(Request $request) {
         if ($request->ajax()) {
             // get request ID
-            $income = $request->id;
-            if ($income) {
+            $planId = $request->id;
+
+            if ($planId) {
                 // Search it from database
                 try {
-                    $income_data = Income::find($income);
-                    if ($income_data) {
-
-                        $tocarbon = new Carbon($income_data->created_at);
-
-                        $incomestosum = IncomesOutgos::where('daily', '=', $tocarbon)->first();
-                    
-                        $incomestosum->incomes_sum_daily = $incomestosum->incomes_sum_daily - $income_data->obshiye_summa;
-
-                        $incomestosum->update();
-
-                        $result  = $income_data->delete();
+                    $plan = Plan::findOrFail($planId);
+                    if ($plan) {
+                        $result  = $plan->delete();
 
                         if ($result) {
-                            return response()->json(['success', $income]);
+                            return response()->json(['success', $planId]);
                         } else {
                             return response()->json('error');
                         }
@@ -143,7 +162,7 @@ class KlientyController extends Controller
                 }
             }
         } else {
-            return redirect()->route('income.index');
+            return redirect()->route('plan.index');
         }
     }
 }

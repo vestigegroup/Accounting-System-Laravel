@@ -6,13 +6,19 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Alert;
+use Carbon\Carbon;
 
 use AccountSystem\Model\Dolgi;
 use AccountSystem\Model\Income;
-
+use AccountSystem\Model\IncomesOutgos;
 
 class DolgiController extends Controller
 {
+    //
+    public function __construct() {
+        $this->middleware('admin.auth');
+    }
+    
     /**
      * Display a listing of the resource.
      *
@@ -20,8 +26,6 @@ class DolgiController extends Controller
      */
     public function index()
     {
-        //
-        // $income = Income::where('ostotok', '0')->with('dolgiData')->orderBy('created_at', 'desc')->paginate(15);
         $incomes = Income::where('ostotok', '>', '0')->with('dolgiData')->get();
 
         return view('dolgi.index', [
@@ -62,6 +66,15 @@ class DolgiController extends Controller
             $sum = $income->ostotok  - $request->summa;
 
             $income->ostotok = $sum;
+            $income->obshiye_summa = $income->obshiye_summa + $request->summa;
+
+            $incomestosum = IncomesOutgos::where('daily', '=', Carbon::now()->format('Y-m-d'))->first();
+
+                if ($incomestosum) {
+                    $incomestosum->incomes_sum_daily = $incomestosum->incomes_sum_daily + $request->summa;
+
+                    $incomestosum->update();
+                }
 
             $income->update();
 
@@ -75,12 +88,10 @@ class DolgiController extends Controller
 
             $dolgi->save();
 
-            alert()->success('Dolgi ', 'Создана Успешно.')->autoClose(4000);
+            alert()->success('Успешно', '')->autoClose(4000);
 
             return redirect()->route('dolgi.index'); 
         }
-
-
     }
 
     /**
@@ -92,6 +103,7 @@ class DolgiController extends Controller
     public function show($id)
     {
         //
+        return response()->route('home');
     }
 
     /**
@@ -103,6 +115,7 @@ class DolgiController extends Controller
     public function edit($id)
     {
         //
+        return response()->route('home');
     }
 
     /**
@@ -115,6 +128,7 @@ class DolgiController extends Controller
     public function update(Request $request, $id)
     {
         //
+        return response()->route('home');
     }
 
     /**
@@ -126,5 +140,6 @@ class DolgiController extends Controller
     public function destroy($id)
     {
         //
+        return response()->route('home');
     }
 }

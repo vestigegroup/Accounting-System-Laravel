@@ -33,7 +33,7 @@
     <div class="container-fluid rasxod-page">
         <div class="">
             @include('shared.leftbarnav')
-            <div class="col-xs-12 col-sm-8 col-md-9 col-lg-10 rasxod-menu-spisokall">
+            <div class="col-xs-12 col-sm-8 col-md-9 col-lg-10 rasxod-menu-spisokall" style="min-height: 854px;">
                 @include('shared.error')
                 
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 table-responsive" style="margin: 0px;">
@@ -45,7 +45,7 @@
                                 <br>
                                 <div class="col-sm-12">
                                     <div class="col-sm-3 text-right">
-                                       <label class="" style="line-height: 1.3em;padding: 6px 12px;"> Имя Клиента:</label>
+                                       <label class="" style="line-height: 1.3em;padding: 6px 12px;"> Имя клиента:</label>
                                     </div>
                                     <div class="col-sm-9">
                                         <div class="input-group">
@@ -58,11 +58,11 @@
                                 <hr style="padding: 0px; margin: 10px;">
                                 <div class="col-sm-12">
                                     <div class="col-sm-3 text-right">
-                                       <label class="" style="line-height: 1.3em;padding: 6px 12px;"> Називание Фирма:</label>
+                                       <label class="" style="line-height: 1.3em;padding: 6px 12px;"> Називание фирмы:</label>
                                     </div>
                                     <div class="col-sm-9">
                                         <div class="input-group">
-                                            <input type="text" class="form-control" placeholder="Називание Фирма" aria-describedby="basic-addon1" name="company_name" required>
+                                            <input type="text" class="form-control" placeholder="Називание Фирмы" aria-describedby="basic-addon1" name="company_name" required>
                                             <span class="input-group-addon photo-title" id="basic-addon1"><i class="fa fa-building fa-fw" aria-hidden="true"></i></span>
                                         </div>
                                     </div>
@@ -71,19 +71,18 @@
                                 <hr style="padding: 0px; margin: 10px;">
                                 <div class="col-sm-12">
                                     <div class="col-sm-3 text-right">
-                                       <label class="" style="line-height: 1.3em;padding: 6px 12px;"> Тип Заказ:</label>
+                                       <label class="" style="line-height: 1.3em;padding: 6px 12px;"> Тип заказ:</label>
                                     </div>
                                     <div class="col-sm-9">
                                         <div class="input-group">
                                             <select class="form-control" name="type_of_zakaz">
                                                 <option>Брендинг</option>
                                                 <option>Полиграфия</option>
-                                                <option>Шелькография</option>
+                                                <option>Шелкография</option>
                                                 <option>Наружная реклама</option>
                                                 <option>Веб-дизайн</option>
                                                 <option>СММ</option>
                                             </select>
-                                            <!-- <input type="text" class="form-control" placeholder="Тип Заказ" aria-describedby="basic-addon1" name="type_of_zakaz" required> -->
                                             <span class="input-group-addon photo-title" id="basic-addon1"><i class="fa fa-question fa-fw" aria-hidden="true"></i></span>
                                         </div>
                                     </div>
@@ -96,7 +95,7 @@
                                     </div>
                                     <div class="col-sm-9">
                                         <div class="input-group">
-                                            <input type="text" class="form-control" placeholder="Флайер, Брошурка, Буклет, и тд...  " aria-describedby="basic-addon1" name="zakaz" required>
+                                            <input type="text" class="form-control" placeholder="Флаер, Брошюра, Буклет, и т.д.  " aria-describedby="basic-addon1" name="zakaz" required>
                                             <span class="input-group-addon photo-title" id="basic-addon1"><i class="fa fa-exclamation fa-fw" aria-hidden="true"></i></i></span>
                                         </div>
                                     </div>
@@ -118,7 +117,7 @@
                                 <hr style="padding: 0px; margin: 10px;">
                                 <div class="col-sm-12">
                                     <div class="col-sm-3 text-right">
-                                       <label class="" style="line-height: 1.3em;padding: 6px 12px;"> Cтоимост Заказ:</label>
+                                       <label class="" style="line-height: 1.3em;padding: 6px 12px;"> Cтоимость заказа:</label>
                                     </div>
                                     <div class="col-sm-9">
                                         <div class="input-group">
@@ -131,7 +130,7 @@
                                 <hr style="padding: 0px; margin: 10px;">
                                 <div class="col-sm-12">
                                     <div class="col-sm-3 text-right">
-                                       <label class="" style="line-height: 1.3em;padding: 6px 12px;"> Скидки:</label>
+                                       <label class="" style="line-height: 1.3em;padding: 6px 12px;"> Скидка:</label>
                                     </div>
                                     <div class="col-sm-9">
                                         <div class="input-group">
@@ -144,7 +143,7 @@
                                 <hr style="padding: 0px; margin: 10px;">
                                 <div class="col-sm-12">
                                     <div class="col-sm-3 text-right">
-                                       <label class="" style="line-height: 1.3em;padding: 6px 12px;"> Общие сума:</label>
+                                       <label class="" style="line-height: 1.3em;padding: 6px 12px;"> Общая сумма:</label>
                                     </div>
                                     <div class="col-sm-9">
                                         <div class="input-group">
@@ -157,7 +156,7 @@
                                 <hr style="padding: 0px; margin: 10px;">
                                 <div class="col-sm-12">
                                     <div class="col-sm-3 text-right">
-                                       <label class="" style="line-height: 1.3em;padding: 6px 12px;"> Оплочно:</label>
+                                       <label class="" style="line-height: 1.3em;padding: 6px 12px;"> Оплачено:</label>
                                     </div>
                                     <div class="col-sm-9">
                                         <div class="input-group ">
@@ -170,7 +169,7 @@
                                 <hr style="padding: 0px; margin: 10px;">
                                 <div class="col-sm-12">
                                     <div class="col-sm-3 text-right">
-                                       <label class="" style="line-height: 1.3em;padding: 6px 12px;"> Остоток:</label>
+                                       <label class="" style="line-height: 1.3em;padding: 6px 12px;"> Остаток:</label>
                                     </div>
                                     <div class="col-sm-9">
                                         <div class="input-group">
@@ -187,7 +186,6 @@
                                     </div>
                                     <div class="col-sm-9">
                                         <div class="input-group ">
-                                            <!-- <input type="text" class="form-control" placeholder="Заметки" aria-describedby="basic-addon1" name="zametka"> -->
                                             <textarea class="form-control" rows="3" placeholder="Заметки" aria-describedby="basic-addon1" name="zametka">
                                             
                                             </textarea>
@@ -218,7 +216,6 @@
             </div>
         </div>
     </div>
-
 
     @include('shared.footer')
 

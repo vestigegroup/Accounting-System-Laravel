@@ -45,7 +45,7 @@
                                 <br>
                                 <div class="col-sm-12">
                                     <div class="col-sm-3 text-right">
-                                       <label class="" style="line-height: 1.3em;padding: 6px 12px;"> Имя Клиента:</label>
+                                       <label class="" style="line-height: 1.3em;padding: 6px 12px;"> Имя клиента:</label>
                                     </div>
                                     <div class="col-sm-9">
                                         <div class="input-group">
@@ -58,7 +58,7 @@
                                 <hr style="padding: 0px; margin: 10px;">
                                 <div class="col-sm-12">
                                     <div class="col-sm-3 text-right">
-                                       <label class="" style="line-height: 1.3em;padding: 6px 12px;"> Називание Фирма:</label>
+                                       <label class="" style="line-height: 1.3em;padding: 6px 12px;"> Називание фирма:</label>
                                     </div>
                                     <div class="col-sm-9">
                                         <div class="input-group">
@@ -71,7 +71,7 @@
                                 <hr style="padding: 0px; margin: 10px;">
                                 <div class="col-sm-12">
                                     <div class="col-sm-3 text-right">
-                                       <label class="" style="line-height: 1.3em;padding: 6px 12px;"> Тип Заказ:</label>
+                                       <label class="" style="line-height: 1.3em;padding: 6px 12px;"> Тип заказ:</label>
                                     </div>
                                     <div class="col-sm-9">
                                         <div class="input-group">
@@ -119,7 +119,7 @@
                                 <hr style="padding: 0px; margin: 10px;">
                                 <div class="col-sm-12">
                                     <div class="col-sm-3 text-right">
-                                       <label class="" style="line-height: 1.3em;padding: 6px 12px;"> Cтоимост Заказ:</label>
+                                       <label class="" style="line-height: 1.3em;padding: 6px 12px;"> Cтоимост заказ:</label>
                                     </div>
                                     <div class="col-sm-9">
                                         <div class="input-group">
@@ -145,7 +145,7 @@
                                 <hr style="padding: 0px; margin: 10px;">
                                 <div class="col-sm-12">
                                     <div class="col-sm-3 text-right">
-                                       <label class="" style="line-height: 1.3em;padding: 6px 12px;"> Общие сума:</label>
+                                       <label class="" style="line-height: 1.3em;padding: 6px 12px;"> Общие сумма:</label>
                                     </div>
                                     <div class="col-sm-9">
                                         <div class="input-group">
@@ -205,7 +205,7 @@
                                     </div>
                                     <div class="col-sm-9">
                                         <div class="input-group ">
-                                            <input type="date" class="form-control" placeholder="" aria-describedby="basic-addon1" name="srok" required value="{{ $income->srok }}">
+                                            <input type="date" class="form-control" placeholder="" aria-describedby="basic-addon1" name="srok" value="{{ $income->srok }}">
                                             <span class="input-group-addon otherlink" id="basic-addon1"><i style="color: red;" class="fa fa-calendar fa-fw" aria-hidden="true"></i></span>
                                         </div>
                                     </div>

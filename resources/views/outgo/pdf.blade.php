@@ -2,14 +2,6 @@
 <html lang="ru">
 <head>
     <meta charset="utf-8">
-     <!-- Latest compiled and minified CSS -->
-    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"> -->
-    <!-- Optional theme -->
-    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css"> -->
-
-    <!-- Font Owesome -->
-    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous"> -->
-
     <link href="{{ asset('css/bootstrap.css') }}" rel="stylesheet">
     <link href="{{ asset('css/font-awesome.min.css') }}" rel="stylesheet">
 
@@ -18,16 +10,17 @@
     <style type="text/css">
         .alert-karz {
             color: #d9534f;
-            /*background-color: #d9534f  !important;*/
-            /*border-color: #d43f3a;*/
         }
         @media print{
             @page { size: landscape }
+            #top-form, #absentexample_filter, .dt-buttons {
+                display: none;
+            }
         }
     </style>
 </head>
 <body>
-<div class="container-fluid well">
+<div class="container-fluid well" id="top-form">
     <div class="container">
         <div class="col-md-8 col-md-push-2">
             <form class="form-inline" action=""  method="get" id="multiple">
@@ -50,35 +43,29 @@
         <div class="table-responsive">
             <div class="text-header text-center"> <h2 class="text-muted"> </h2></div>
                 <table class="table table-bordered col-sm-12" style="margin-top:10px;" id="absentexample">
+                    <colgroup>
+                    </colgroup>
                     <thead>
-                        <tr class="">
-                            <th class="text-center"> Имя клиента </th>
-                            <th class="text-center"> Название фирмы </th>
-                            <th class="text-center"> Тип заказ </th>
-                            <th class="text-center"> Заказ </th>
-                            <th class="text-center"> Количество </th>
-                            <th class="text-center"> Cтоимост заказа </th>
-                            <th class="text-center"> Скидки </th>
-                            <th class="text-center"> Общая сумма </th>
-                            <th class="text-center"> Оплачено </th>
-                            <th class="text-center"> Остаток </th>
-                            <th class="text-center"> Срок </th>
+                        <tr>
+                            <th class="text-center"> Исполнитель </th>
+                            <th class="text-center"> Наименование </th>
+                            <th class="text-center"> Ед. изм </th>
+                            <th class="text-center"> Кол-во </th>
+                            <th class="text-center"> Цена </th>
+                            <th class="text-center"> Общ. сумма  </th>
+                            <th class="text-center"> Тип </th>
                         </tr>
-                    </thead>                    
-                    <tbody>
-                        @foreach($incomes as $income)
-                            <tr class="@if($income->ostotok>0){{'alert-karz'}} @endif">
-                                <td class="text-center">{{ $income->customer_name }}</td>
-                                <td class="text-center">{{ $income->company_name }}</td>
-                                <td class="text-center">{{ $income->type_of_zakaz }}</td>
-                                <td class="text-center">{{ $income->zakaz }}</td>
-                                <td class="text-center">{{ $income->kolvo }}</td>
-                                <td class="text-center">{{ $income->stoimost_zakaz }}</td>
-                                <td class="text-center">{{ $income->sena_zakaz }}</td>
-                                <td class="text-center">{{ $income->obshiye_summa }}</td>
-                                <td class="text-center">{{ $income->oplachno }}</td>
-                                <td class="text-center">{{ $income->ostotok }}  </td>
-                                <td class="text-center">{{ $income->srok }}</td>
+                    </thead>
+                    <tbody class="clearfix">
+                         @foreach($outgos as $outgo)
+                            <tr class="odd gradeX" id="outgo_{{$outgo->id}}">
+                                <td class="text-center">{{ $outgo->ispolnitelni }}</td>
+                                <td class="text-center">{{ $outgo->naimenovanie }}</td>
+                                <td class="text-center">{{ $outgo->ed_izm }}</td>
+                                <td class="text-center">{{ $outgo->kol_vo }}</td>
+                                <td class="text-center">{{ $outgo->sena }}</td>
+                                <td class="text-center">{{ $outgo->obwiya }}</td>
+                                <td class="text-center">{{ $outgo->tip_rasxod }}</td>
                             </tr>
                         @endforeach
                     </tbody>
@@ -105,7 +92,7 @@
     $('#absentexample').DataTable( {
         dom: 'Bfrtip',
         "pageLength": 30,
-        "autoWidth": true,
+        "autoWidth": false,
 
         buttons: [
             'excel', 'pdf', 'print'

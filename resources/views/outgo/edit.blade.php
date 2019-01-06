@@ -1,5 +1,7 @@
 @extends('layouts.app')
 @section('css')
+<link href="{{ URL::asset('css/bootstrap-select.min.css') }}  " rel="stylesheet">
+
 <style type="text/css">
     .navbar-default {
         /*background-color: #8f111a !important;*/
@@ -132,23 +134,15 @@
         color: #fff;
         border: 2px solid #fff;
         box-shadow: 0 0 0 0 #8f111a;
-        /*border-radius: 50%;*/
         background-size:cover;
         background-repeat: no-repeat;
-        /*cursor: pointer;
-        -webkit-animation: pulsecustom 1.25s infinite cubic-bezier(0.66, 0, 0, 1);
-        -moz-animation: pulsecustom 1.25s infinite cubic-bezier(0.66, 0, 0, 1);
-        -ms-animation: pulsecustom 1.25s infinite cubic-bezier(0.66, 0, 0, 1);
-        animation: pulsecustom 1.25s infinite cubic-bezier(0.66, 0, 0, 1);*/
     }
-    
     .table-striped {
         border-collapse: collapse !important;
         display: table;
         border-spacing: 0px !important;
         border-color: grey;
     }
-
     .form-control {
         display: block;
         width: 100% !important;
@@ -162,7 +156,6 @@
         border: 1px solid #ccc;
         border-radius: 4px;
     }
-
     table {
         border:1px solid white !important;
     }
@@ -171,15 +164,12 @@
         border: 1px solid white!important;
     }
     .table>tbody>tr:nth-of-type(odd) input {
-        /*background-color: #f5f;*/
         background-color: #ddd !important;
         background-image: none;
-        /*border: 2px solid white;*/
         border:none;
         border-radius: 0px;
     }
     .table>tbody>tr:nth-of-type(even) input {
-        /*background-color: #f5f;*/
         background-color: #eee !important;
         background-image: none;
         border:none;
@@ -194,19 +184,13 @@
         background-image: none !important;
         color: rgb(0, 0, 0) !important;
     }
-    /*.rasxod-menu-spisokall .table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
-        padding: 5px;
-        line-height: 1.4em;
-        vertical-align: middle;
-    }*/
-
 </style>
 
 @endsection
 @section('content')
     @include('shared.navbartop')
 
-    <div class="container-fluid rasxod-page">
+    <div class="container-fluid rasxod-page" style="min-height: 853px;">
         <div class="">
             @include('shared.leftbarnav')
             <div class="col-xs-12 col-sm-8 col-md-9 col-lg-10 rasxod-menu-spisokall">
@@ -239,7 +223,7 @@
                                 <div class="form-group">
                                     <div class="input-group">
                                         <div class="input-group-addon" style="border:none; "><b>Дата:</b> </div>
-                                        <input type="date" class="form-control" id="exampleInputAmount" placeholder="Дата" value="{{ $outgo->summa }}" name="data">
+                                        <input type="date" class="form-control" id="exampleInputAmount" placeholder="" value="{{ $outgo->data }}" name="data">
                                         <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
                                     </div>
                                 </div>
@@ -280,32 +264,33 @@
                                             <input type="number" class="form-control" placeholder="Обш сумма" aria-describedby="basic-addon1" name="obwiya" required value="{{ $outgo->obwiya }}">
                                         </td>
                                         <td>
-                                            <select  class="form-control" name="tip_rasxod">
-                                                <option>{{ $outgo->tip_rasxod }}</option>
-                                                <option>Рамз</option>
-                                                <option><b>-- Шахси --</b></option>
-                                                <option><b>-- Zakazi --</b></option>
-                                                <option>Mr.Firuz</option>
-                                                <option></option>
-                                                <option></option>
-                                                <option></option>
+                                            <select  class="selectpicker" name="rasxod_type" data-size="auto" data-live-search="true">
+                                                <option value="{{$outgo->tip_id}}|{{$outgo->tip_type_id}}|{{$outgo->tip_name}}">{{$outgo->tip_name}}</option>
+                                                <option value="0|4|Ramz"><b>Рамз</b></option>
+                                                <optgroup label="Income" data-divider="true">        
+                                                    @foreach($incomes as $income)
+                                                        <option value="{{ $income->id }}|1|{{ $income->company_name }}"> {{ $income->company_name }} {{ $income->customer_name }}</option>
+                                                    @endforeach
+                                                </optgroup>
+                                                <optgroup label="Sotrudniki" data-divider="true">
+                                                    @foreach($sotrudniki as $sotrudnik)
+                                                        <option value="{{ $sotrudnik->id }}|2|{{ $sotrudnik->imja_sotrudnika }}" > {{ $sotrudnik->imja_sotrudnika }} </option>
+                                                    @endforeach
+                                                </optgroup>
+
+                                                <optgroup label="Partner" data-divider="true">
+                                                    @foreach($partners as $partner)
+                                                        <option value="{{ $partner->id  }}|3|{{ $partner->nazivaniye_firma }}" > {{ $partner->nazivaniye_firma }} </option>
+                                                    @endforeach
+                                                </optgroup>
                                             </select>
                                         </td>
                                         <td>
-                                            <!-- <input type="text" class="form-control" placeholder="Имя Клиента" aria-describedby="basic-addon1" name="customer[0][]" required> -->
                                         </td>
                                         <td class="last">
                                             <button class="hide btn btn-success btn-circle  btn-sm btn-minus"> <i class="fa fa-minus"></i></button>
                                         </td>
                                     </tr>
-                                    <!-- <tr>
-                                        <td class="" colspan="7">
-                                            
-                                        </td>
-                                        <td class="">
-                                            <button class="btn btn-success btn-circle  btn-sm btn-add"> <i class="fa fa-plus"></i></button>
-                                        </td>
-                                    </tr> -->
                                 </tbody>
                             </table>
 
@@ -320,50 +305,13 @@
             </div>
         </div>
     </div>
-
-
     @include('shared.footer')
 
 @endsection
 @section('js')
+<script src="{{ URL::asset('js/bootstrap-select.min.js') }}"></script>
+
 <script type="text/javascript">
-   
-
-    $('.btn-add').click(function(){
-
-        var i = 1;
-
-        var  form_row = "<tr id='row_" + (i+1) + "'>" 
-                        + "<td> <input type='text' class='form-control' placeholder='Имя Клиента' aria-describedby='basic-addon1' name='customer[" + i + "][]' required>" +"</td>"
-                        + "<td> <input type='text' class='form-control' placeholder='Имя Клиента' aria-describedby='basic-addon1' name='customer[" + i + "][]' required>" +"</td>"
-                        + "<td> <input type='text' class='form-control' placeholder='Имя Клиента' aria-describedby='basic-addon1' name='customer[" + i + "][]' required>" +"</td>"
-                        + "<td> <input type='text' class='form-control' placeholder='Имя Клиента' aria-describedby='basic-addon1' name='customer[" + i + "][]' required>" +"</td>"
-                        + "<td> <input type='text' class='form-control' placeholder='Имя Клиента' aria-describedby='basic-addon1' name='customer[" + i + "][]' required>" +"</td>"
-                        + "<td> <input type='text' class='form-control' placeholder='Имя Клиента' aria-describedby='basic-addon1' name='customer[" + i + "][]' required>" +"</td>"
-                        + "<td><a class='btn btn-success btn-circle  btn-sm btn-minus'   onclick='"+"alert('hello')" +"' value='" + i + "'> <i class='fa fa-minus' id='delete'></i></a>" + "</td>";
-
-        $('#row_' + i).after(form_row);
-
-        // console.log($('#row_' + (i+1) + '> .last').removeClass('hide').html());
-
-        i++;
-    });
-    
-    $('.btn-minus').click(function(){
-        // var a = $(this).val();
-        alert("hello");
-        // $(this).parent().remove();
-
-        return false;
-    });
-    
-
-    function hello() {
-        alert('hello');
-
-        return false;
-    }
-
 </script>
 
 @endsection

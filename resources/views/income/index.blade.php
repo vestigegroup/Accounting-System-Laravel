@@ -18,6 +18,12 @@
     .dropdown-menu .fa, table .fa {
         color: black !important;
     }
+    .btn .fa {
+        color: white !important;
+    }
+    .fa-fw {
+        width: 0.9em;
+    }
 </style>
 <!-- DataTables CSS -->
 <link href="{{ URL::asset('css/dataTables.bootstrap.css') }}  " rel="stylesheet">
@@ -31,50 +37,52 @@
     <div class="container-fluid rasxod-page">
         <div class="">
             @include('shared.leftbarnav')
-            <div class="col-xs-12 col-sm-8 col-md-9 col-lg-10 rasxod-menu-spisokall  ">
+            <div class="col-xs-12 col-sm-8 col-md-9 col-lg-10 rasxod-menu-spisokall" style="min-height: 853px;">
                 @include('shared.error')
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 " style="padding: 10px;">
                     <!-- Content You may write your code here -->
-                    <div class="table-responsive">
+                    <div class="">
                         <table width="100%" class="table table-striped table-bordered table-hover clearfix" id="dataTables-example">
+                            <colgroup>
+                                <col width="16%"></col>
+                                <col width="16%"></col>
+                                <col width="16%"></col>
+                                <col width="17%"></col>
+                                <col width="17%"></col>
+                                <col width="7%"></col>
+                            </colgroup>
                             <thead>
                                 <tr>
-                                    <th class="text-center"><i class="fa fa-users"></i> Имя Клиента </th>
-                                    <th class="text-center"><i class="fa fa-bank"></i> Називание Фирма </th>
-                                    <th class="text-center"><i class="fa fa-question"></i> Тип Заказ </th>
-                                    <th class="text-center"><i class="fa fa-exclamation"></i> Заказ </th>
-                                    <th class="text-center"><i class="fa fa-list-ol"></i> Количество </th>
-                                    <!-- <th class="text-center"><i class="fa fa-usd"></i> Cтоимост Заказ </th> -->
-                                    <!-- <th class="text-center"><i class="fa fa-percent"></i> Скидки </th> -->
-                                    <!-- <th class="text-center"><i class="fa fa-bank"></i> Общие сума </th> -->
-                                    <!-- <th class="text-center"><i class="fa fa-usd"></i>  Оплочно </th> -->
-                                    <!-- <th class="text-center"><i class="fa fa-usd"></i>  Остоток </th> -->
-                                    <!-- <th class="text-center"><i class="fa fa-calendar"></i>  Срок </th> -->
+                                    <th class="text-center"> Имя клиента </th>
+                                    <th class="text-center"> Название фирмы </th>
+                                    <th class="text-center"> Тип заказ </th>
+                                    <th class="text-center"> Заказ </th>
+                                    <th class="text-center"> Количество </th>
+                                    <th class="text-center"> Расход </th>
+                                    <th class="text-center"> Дата </th>
                                     <th><i class="fa fa-edit"></i>  <i class="fa fa-trash"></i>  </th>
                                 </tr>
                             </thead>
-                            <tbody class="clearfix">
+                            <tbody>
                                 @foreach($incomes as $income)
-                                    <tr class="odd gradeX" id="income_{{$income->id}}">
+                                    <tr class="odd gradeX" id="incomes_{{$income->id}}">
                                         <td class="text-center">{{ $income->customer_name }}</td>
                                         <td class="text-center">{{ $income->company_name }}</td>
                                         <td class="text-center">{{ $income->type_of_zakaz }}</td>
                                         <td class="text-center">{{ $income->zakaz }}</td>
                                         <td class="text-center">{{ $income->kolvo }}</td>
-                                        <!-- <td class="text-center">{{ $income->stoimost_zakaz }}</td> -->
-                                        <!-- <td class="text-center">{{ $income->sena_zakaz }}</td> -->
-                                        <!-- <td class="text-center">{{ $income->obshiye_summa }}</td> -->
-                                        <!-- <td class="text-center">{{ $income->oplachno }}</td> -->
-                                        <!-- <td class="text-center">{{ $income->ostotok }}  </td> -->
-                                        <!-- <td class="text-center">{{ $income->srok }}</td> -->
+                                        <td class="text-center">
+                                            @foreach($income->getObshiye as $incomeinfo)
+                                                {{ $incomeinfo->total }}
+                                            @endforeach
+                                        </td>
+                                        <td class="text-center">{{ $income->created_at }}</td>
                                         <td>
-                                            <a class="btn btn-warning btn-sm" href="{{ route('income.edit', ['id'=> $income->id ]) }}"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-                                            <button class="btn btn-danger btn-sm deleteincome" value="{{ $income->id }}"><i class="fa fa-trash"></i> </button>
-                                            
+                                            <a class="btn btn-warning btn-xs" href="{{ route('income.edit', ['id'=> $income->id ]) }}"><i class="fa fa-pencil fa-fw" aria-hidden="true"></i></a>
+                                            <button class="btn btn-danger btn-xs deleteincome" value="{{ $income->id }}"><i class="fa fa-trash fa-fw"></i> </button>
                                             @if($income->ostotok>0)
                                                 <i class="fa fa-circle customer-alert"></i>
                                             @endif
-                                            
                                         </td>
                                     </tr>
                                 @endforeach
@@ -86,24 +94,24 @@
         </div>
     </div>
 
- <!-- Modal for Delete Zarplata -->
+ <!-- Modal  -->
 <div class="modal fade" id="deleteincome" tabindex="-1" role="dialog">
     <div class='modal-dialog'>
         <!-- Modal content-->
         <div class='modal-content'>
             <div class='modal-header'>
                 <button type='button' class='close' data-dismiss='modal'>&times;</button>
-                <h4 class='modal-title'>Delete</h4>
+                <h4 class='modal-title'>Удалить</h4>
             </div>
             <div class='modal-body'>
                 <div class="">
-                    <h4 class="text-center text-danger"> Zapis Budet Udalit!</h4>
-                    <h4 class="text-center text-danger">We desvitelno xatite udalit eto zapisa?</h4>
+                    <h4 class="text-center text-danger"> Запис будет удален.</h4>
+                    <h4 class="text-center text-danger">Вы действительно хотите удалить?</h4>
                 </div>
             </div>
             <div class='modal-footer'>
-                <button type='button' class='btn btn-danger deletebtn' value=''>Delete</button>
-                <!-- <button type='button' class='btn btn-default' data-dismiss='modal'>Close</button> -->
+                <button type='button' class='btn btn-danger deletebtn' value=''>Да</button>
+                <button type='button' class='btn btn-default' data-dismiss='modal'>Нет</button>
             </div>
         </div>
     </div>
@@ -139,7 +147,7 @@
                     url:"/income/deleteAjax/" + task_id,
                     success: function (data) {
                         $('#deleteincome').modal('hide');
-                        $("#income_" + data[1]).fadeOut(800, function () {
+                        $("#incomes_" + data[1]).fadeOut(800, function () {
                             $(this).remove();
                         });
                     },

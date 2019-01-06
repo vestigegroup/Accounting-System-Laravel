@@ -11,6 +11,10 @@ use AccountSystem\Model\Outgo;
 
 class RamzController extends Controller
 {
+    //
+    public function __construct() {
+        $this->middleware('admin.auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -18,11 +22,11 @@ class RamzController extends Controller
      */
     public function index()
     {
-        $outgos = Outgo::where('tip_rasxod', 'ramz')->orderBy('created_at', 'desc')->limit('50')->get();
+        $outgos = Outgo::where('tip_id', '0')->orderBy('created_at', 'desc')->limit('50')->get();
 
         return view('ramz.index', [
-            'fa'                => 'fa fa-exclamation-triangle fa-fw',
-            'title'             => 'Ramz',
+            'fa'                => 'fa fa-circle fa-fw',
+            'title'             => 'Рамз',
             'addurl'            => '',
             'savedata'          => '',
             'print'             => '',
@@ -39,6 +43,7 @@ class RamzController extends Controller
     public function create()
     {
         //
+        return response()->route('home');
     }
 
     /**
@@ -50,6 +55,7 @@ class RamzController extends Controller
     public function store(Request $request)
     {
         //
+        return response()->route('home');
     }
 
     /**
@@ -61,6 +67,7 @@ class RamzController extends Controller
     public function show($id)
     {
         //
+        return response()->route('home');
     }
 
     /**
@@ -72,6 +79,7 @@ class RamzController extends Controller
     public function edit($id)
     {
         //
+        return response()->route('home');
     }
 
     /**
@@ -84,6 +92,7 @@ class RamzController extends Controller
     public function update(Request $request, $id)
     {
         //
+        return response()->route('home');
     }
 
     /**
@@ -95,5 +104,6 @@ class RamzController extends Controller
     public function destroy($id)
     {
         //
+        return response()->route('home');
     }
 }

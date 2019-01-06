@@ -13,9 +13,14 @@ class DatabaseSeeder extends Seeder
     {
         // $this->call(UsersTableSeeder::class);
         DB::table('admins')->insert([ //,
-            'name' => 'akbarsho',
-            'email' => 'akbarsho@gmail.com',
-            'password' => bcrypt('12345'),
+            'name' => 'ramz',
+            'email' => 'ramz@ramz.com',
+            'password' => bcrypt('23132'),
+        ]);
+
+        DB::table('settings')->insert([ //,
+            'name' => 'test',
+            'password' => '12345',
         ]);
 
         // for ($i=0; $i < 100; $i++) { 
